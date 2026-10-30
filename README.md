@@ -44,4 +44,12 @@ npx cypress run
 
 ## Integração contínua
 
-O workflow em `.github/workflows/cypress.yml` executa os testes em eventos de `push` e `pull_request`, e também pode ser iniciado manualmente pelo GitHub Actions. Ele instala o Node.js e as dependências e então executa `npx cypress run`.
+O workflow em `.github/workflows/cypress.yml` executa os testes em eventos de `push` e `pull_request`, e também pode ser iniciado manualmente pelo GitHub Actions. Ele instala o Node.js e as dependências e então executa `npm run cy:report`.
+
+O Cypress usa o Mochawesome para gerar o relatório HTML em `cypress/reports`. No GitHub Actions, após a execução, abra o resumo do workflow e baixe o artefato `relatorio-cypress-<número da execução>`. Extraia o arquivo e abra `index.html` no navegador. O artefato é publicado mesmo se algum teste falhar e fica disponível por 14 dias. O relatório é um arquivo baixável, não uma página hospedada com link público.
+
+Para executar localmente e gerar o relatório:
+
+```bash
+npm run cy:report
+```
