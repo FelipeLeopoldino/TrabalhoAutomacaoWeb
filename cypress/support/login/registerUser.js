@@ -1,0 +1,32 @@
+Cypress.Commands.add("registerUser", (userOverrides = {}) => {
+  cy.fixture("login/registerUser").then((fixtureUser) => {
+    const user = { ...fixtureUser, ...userOverrides };
+    cy.contains("a", "Signup / Login").click();
+    cy.contains("New User Signup!").should("be.visible");
+    cy.get('[data-qa="signup-name"]').type(user.name);
+    cy.get('[data-qa="signup-email"]').type(user.email);
+    cy.get('[data-qa="signup-button"]').click();
+    cy.contains("Enter Account Information").should("be.visible");
+    cy.get(user.genderSelector).check();
+    cy.get("#password").type(user.password);
+    cy.get("#days").select(user.birthDay);
+    cy.get("#months").select(user.birthMonth);
+    cy.get("#years").select(user.birthYear);
+    if (user.newsletter) cy.get("#newsletter").check();
+    if (user.specialOffers) cy.get("#optin").check();
+    cy.get("#first_name").type(user.firstName);
+    cy.get("#last_name").type(user.lastName);
+    cy.get("#company").type(user.company);
+    cy.get("#address1").type(user.address1);
+    cy.get("#address2").type(user.address2);
+    cy.get("#country").select(user.country);
+    cy.get("#state").type(user.state);
+    cy.get("#city").type(user.city);
+    cy.get("#zipcode").type(user.zipcode);
+    cy.get("#mobile_number").type(user.mobileNumber);
+    cy.get('[data-qa="create-account"]').click();
+    cy.contains(user.accountCreatedMessage).should("be.visible");
+    cy.get('[data-qa="continue-button"]').click();
+    cy.contains(user.loggedInLabel).should("contain.text", user.name);
+  });
+});
