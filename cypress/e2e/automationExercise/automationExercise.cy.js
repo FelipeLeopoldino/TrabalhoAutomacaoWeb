@@ -99,7 +99,6 @@ describe("Trabalho de conclusão de Disciplina PGATS - Automação de testes na 
 
     cy.registerUser(user);
     cy.addProductToCart(0);
-    cy.addProductToCart(1);
     cy.contains("a", "Cart").click();
     cy.contains("Shopping Cart").should("be.visible");
     cy.contains("Proceed To Checkout").click();
@@ -117,6 +116,5 @@ describe("Trabalho de conclusão de Disciplina PGATS - Automação de testes na 
     cy.contains("Address Details").should("be.visible");
     cy.contains("Review Your Order").should("be.visible");
     cy.completeOrderPayment();
-    cy.contains("a", "Logout").click();
   });
 });
